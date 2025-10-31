@@ -44,7 +44,7 @@ sudo pacman -S --needed --noconfirm \
     flameshot \
     xss-lock \
     networkmanager \
-    nm-applet \
+    network-manager-applet \
     xorg-xrandr \
     xorg-server \
     xorg-xinit
