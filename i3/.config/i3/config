@@ -227,3 +227,6 @@ exec_always --no-startup-id xinput set-prop 11 "libinput Natural Scrolling Enabl
 
 # Start compositor (fixes screen tearing)
 exec_always --no-startup-id picom -b
+
+# Set random wallpaper
+exec_always --no-startup-id feh --bg-scale --randomize ~/.config/backgrounds/*
