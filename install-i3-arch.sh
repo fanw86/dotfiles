@@ -55,9 +55,14 @@ sudo pacman -S --needed --noconfirm \
     pipewire \
     pipewire-pulse \
     pipewire-alsa \
-    pipewire-jack \
     wireplumber \
     pavucontrol
+
+# Optional: pipewire-jack (conflicts with jack2)
+read -p "Install pipewire-jack? Only if you need JACK audio support [y/N]: " install_jack
+if [[ $install_jack == "y" || $install_jack == "Y" ]]; then
+    sudo pacman -S --needed --noconfirm pipewire-jack
+fi
 
 # Fonts
 echo -e "${GREEN}Installing fonts...${NC}"
