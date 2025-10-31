@@ -277,5 +277,6 @@ animation-charging-framerate = 750
 [module/cpu]
 type = internal/cpu
 interval = 0.5
-format = <label> <ramp-coreload>
-label = CPU
+format = <label>
+label =  %percentage%%
+label-padding = 2
