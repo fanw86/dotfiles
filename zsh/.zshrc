@@ -96,5 +96,5 @@ pomodoro () {
 alias work="pomodoro 'work'"
 alias br="pomodoro 'break'"
 
-# Show neofetch on terminal launch
-neofetch
+# Show neofetch on terminal launch (compact mode)
+neofetch --ascii_distro arch_small --disable gpu
