@@ -1,23 +1,23 @@
-# polybar fonts fix
+- [ ] polybar fonts fix
 
-# vscode
+- [ ] vscode
 
-# claude and codex
+- [ ] claude and codex
 
-# speckit
+- [ ] speckit
 
-# background
+- [ ] background
 
-# terminal banner
+- [ ] terminal banner
 
-# zsh
+- [ ] zsh
 
-# nvim
+- [ ] nvim
 
-# background
+- [ ] background
 
-# gpu driver and picom transparency
+- [ ] gpu driver and picom transparency
 
-# backlight and sound
+- [ ] backlight and sound
 
-# mouse keys and natural scroll
+- [ ] mouse keys and natural scroll
