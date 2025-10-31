@@ -92,3 +92,6 @@ pomodoro () {
 
 alias work="pomodoro 'work'"
 alias br="pomodoro 'break'"
+
+# Show neofetch on terminal launch
+neofetch
