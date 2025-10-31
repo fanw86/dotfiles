@@ -58,8 +58,8 @@ font-1 = Symbols Nerd Font Mono:style=Regular:size=12;3
 
 ; Modules
 modules-left   = i3
-modules-center = weather time date
-modules-right  = battery network lock logout poweroff
+modules-center = cpu time date
+modules-right  = battery network audio lock logout poweroff
 
 ; Cursor actions
 cursor-click  = pointer
