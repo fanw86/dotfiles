@@ -178,7 +178,7 @@ label-muted-padding    = 2
 type = internal/network
 
 ; Interface
-interface = wlp3s0
+interface = wlan0
 
 ; Connected label
 label-connected            = 
