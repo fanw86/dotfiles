@@ -19,7 +19,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME=""
 POWERLEVEL9K_MODE="nerdfont-complete"
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 # Uncomment the following line to enable command auto-correction.
@@ -27,6 +27,9 @@ ENABLE_CORRECTION="true"
 # plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+
+# Source Powerlevel10k from AUR installation
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # User configuration
 export EDITOR='nvim'
