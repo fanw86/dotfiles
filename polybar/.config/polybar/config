@@ -53,8 +53,8 @@ module-margin-left  = 0
 module-margin-right = 0
 
 ; Font
-font-0 = Iosevka:size=10;3
-font-1 = NerdFontsSymbolsOnly:style=1000-Regular:size=12;3
+font-0 = monospace:size=10;3
+font-1 = Symbols Nerd Font Mono:style=Regular:size=12;3
 
 ; Modules
 modules-left   = i3
@@ -237,7 +237,7 @@ margin-bottom = 10
 [module/consumption]
 type = custom/script
 
-exec = /home/bashbunni/.config/polybar/power.sh
+exec = /home/wf/.config/polybar/power.sh
 interval = 2
 
 [module/battery]
