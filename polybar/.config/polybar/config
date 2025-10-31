@@ -54,7 +54,7 @@ module-margin-right = 0
 
 ; Font
 font-0 = Iosevka:size=10;3
-font-1 = Font Awesome:style=Regular:size=12;3
+font-1 = NerdFontsSymbolsOnly:style=1000-Regular:size=12;3
 
 ; Modules
 modules-left   = i3

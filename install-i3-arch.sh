@@ -67,20 +67,19 @@ fi
 # Fonts
 echo -e "${GREEN}Installing fonts...${NC}"
 sudo pacman -S --needed --noconfirm \
-    ttf-font-awesome \
     ttf-dejavu \
     ttf-liberation
 
 # Check for AUR helper
 if command -v yay &> /dev/null; then
-    echo -e "${GREEN}Installing additional fonts from AUR...${NC}"
-    yay -S --needed --noconfirm ttf-iosevka-nerd || true
+    echo -e "${GREEN}Installing Nerd Fonts from AUR...${NC}"
+    yay -S --needed --noconfirm ttf-iosevka-nerd ttf-nerd-fonts-symbols-mono || true
 elif command -v paru &> /dev/null; then
-    echo -e "${GREEN}Installing additional fonts from AUR...${NC}"
-    paru -S --needed --noconfirm ttf-iosevka-nerd || true
+    echo -e "${GREEN}Installing Nerd Fonts from AUR...${NC}"
+    paru -S --needed --noconfirm ttf-iosevka-nerd ttf-nerd-fonts-symbols-mono || true
 else
-    echo -e "${YELLOW}No AUR helper found. Skipping ttf-iosevka-nerd (optional)${NC}"
-    echo "You can install yay or paru later and run: yay -S ttf-iosevka-nerd"
+    echo -e "${YELLOW}No AUR helper found. Skipping Nerd Fonts (optional)${NC}"
+    echo "You can install yay or paru later and run: yay -S ttf-iosevka-nerd ttf-nerd-fonts-symbols-mono"
 fi
 
 # i3lock-fancy (might need AUR)
