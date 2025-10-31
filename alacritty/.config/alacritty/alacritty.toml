@@ -9,21 +9,17 @@ TERM = "xterm-256color"
 size = 14.0
 
 [font.bold]
-# family = "MesloLGS Nerd Font Mono"
-family = "CaskaydiaCove Nerd Font"
+family = "JetBrains Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "CaskaydiaCove Nerd Font"
-# family = "MesloLGS Nerd Font Mono"
+family = "JetBrains Mono"
 style = "Bold Italic"
 
 [font.italic]
-family = "CaskaydiaCove Nerd Font"
-# family = "MesloLGS Nerd Font Mono"
+family = "JetBrains Mono"
 style = "Italic"
 
 [font.normal]
-# family = "MesloLGS Nerd Font Mono"
-family = "CaskaydiaCove Nerd Font"
+family = "JetBrains Mono"
 style = "Regular"
