@@ -214,3 +214,7 @@ bindsym F1 exec $HOME/.config/emacs/bin/doom run
 workspace 1 output HDMI-2
 workspace 2 output eDP-1
 exec_always xrandr --output HDMI-2 --auto --left-of eDP-1
+
+# Touchpad settings
+exec_always --no-startup-id xinput set-prop 11 "libinput Tapping Enabled" 1
+exec_always --no-startup-id xinput set-prop 11 "libinput Natural Scrolling Enabled" 1
