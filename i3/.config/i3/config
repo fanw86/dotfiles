@@ -143,7 +143,7 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # lock screen
-bindsym $mod+l exec --no-startup-id betterlockscreen -l
+bindsym $mod+x exec --no-startup-id betterlockscreen -l
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
