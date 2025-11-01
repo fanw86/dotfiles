@@ -199,7 +199,7 @@ content            = 
 content-padding    = 2
 
 ; Mouse click
-click-left = i3lock-fancy -f Roboto-Regular -t ""
+click-left = betterlockscreen -l
 
 [module/logout]
 type = custom/text
