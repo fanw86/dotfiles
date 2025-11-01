@@ -5,11 +5,22 @@
 
 set -e  # Exit on error
 
-SWAPFILE="/swapfile"
 SWAPSIZE="32"  # Size in GB
 
 echo "Creating ${SWAPSIZE}GB swapfile for hibernation..."
 echo "This will take a few minutes..."
+
+# Check filesystem type
+FSTYPE=$(df -T / | tail -1 | awk '{print $2}')
+echo "Detected filesystem: $FSTYPE"
+echo ""
+
+# Set swapfile path based on filesystem
+if [ "$FSTYPE" == "btrfs" ]; then
+    SWAPFILE="/swap/swapfile"
+else
+    SWAPFILE="/swapfile"
+fi
 
 # Check if swapfile already exists
 if [ -f "$SWAPFILE" ]; then
@@ -18,21 +29,29 @@ if [ -f "$SWAPFILE" ]; then
     exit 1
 fi
 
-# Check filesystem type
-FSTYPE=$(df -T / | tail -1 | awk '{print $2}')
-echo "Detected filesystem: $FSTYPE"
-echo ""
-
 # Create swapfile (Btrfs requires special handling)
 if [ "$FSTYPE" == "btrfs" ]; then
-    echo "Creating Btrfs-compatible swapfile..."
-    # Create empty file with touch (must be completely empty for chattr +C)
+    echo "Creating Btrfs-compatible swapfile with dedicated subvolume..."
+
+    # Find the btrfs root mount point
+    ROOT_MOUNT=$(df / | tail -1 | awk '{print $6}')
+
+    # Create swap subvolume if it doesn't exist
+    if [ ! -d "/swap" ]; then
+        echo "Creating swap subvolume..."
+        sudo btrfs subvolume create /swap
+    fi
+
+    # Set nocow and nodatasum on the subvolume
+    echo "Disabling COW and compression on swap subvolume..."
+    sudo chattr +C /swap
+
+    # Create the swapfile in the subvolume
+    echo "Creating swapfile at $SWAPFILE..."
     sudo touch $SWAPFILE
-    # Disable COW (copy-on-write) - REQUIRED for Btrfs swapfiles
-    echo "Disabling copy-on-write..."
     sudo chattr +C $SWAPFILE
-    # Set permissions
     sudo chmod 600 $SWAPFILE
+
     # Fill the file
     echo "Filling swapfile (this takes time)..."
     sudo dd if=/dev/zero of=$SWAPFILE bs=1G count=$SWAPSIZE status=progress
