@@ -33,40 +33,28 @@ fi
 if [ "$FSTYPE" == "btrfs" ]; then
     echo "Creating Btrfs-compatible swapfile with dedicated subvolume..."
 
-    # Find the btrfs root mount point
-    ROOT_MOUNT=$(df / | tail -1 | awk '{print $6}')
-
     # Create swap subvolume if it doesn't exist
     if [ ! -d "/swap" ]; then
         echo "Creating swap subvolume..."
         sudo btrfs subvolume create /swap
     fi
 
-    # Set nocow and nodatasum on the subvolume
-    echo "Disabling COW and compression on swap subvolume..."
-    sudo chattr +C /swap
-
-    # Create the swapfile in the subvolume
-    echo "Creating swapfile at $SWAPFILE..."
-    sudo touch $SWAPFILE
-    sudo chattr +C $SWAPFILE
-    sudo chmod 600 $SWAPFILE
-
-    # Fill the file
-    echo "Filling swapfile (this takes time)..."
-    sudo dd if=/dev/zero of=$SWAPFILE bs=1G count=$SWAPSIZE status=progress
+    # Use btrfs's built-in mkswapfile command (handles COW, compression, preallocation)
+    echo "Creating swapfile with btrfs filesystem mkswapfile..."
+    echo "This automatically disables COW, compression, and preallocates space."
+    sudo btrfs filesystem mkswapfile --size ${SWAPSIZE}g --uuid clear $SWAPFILE
 else
     echo "Creating swapfile..."
     # Standard method for ext4 and others
     sudo fallocate -l ${SWAPSIZE}G $SWAPFILE
     sudo chmod 600 $SWAPFILE
+
+    # Format as swap (btrfs mkswapfile does this automatically)
+    echo "Formatting as swap..."
+    sudo mkswap $SWAPFILE
 fi
 
 echo ""
-
-# Make it a swap file
-echo "Formatting as swap..."
-sudo mkswap $SWAPFILE
 
 # Enable the swapfile
 echo "Enabling swapfile..."
