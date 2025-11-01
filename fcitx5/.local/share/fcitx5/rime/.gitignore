@@ -1,0 +1,7 @@
+# 忽略所有文件
+*
+
+# 只保留自定义配置
+!.gitignore
+!*.custom.yaml
+!*.dict.yaml  # 如果你有自定义词库
