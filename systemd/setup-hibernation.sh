@@ -36,7 +36,7 @@ if [ ! -d "$BOOT_ENTRIES_DIR" ]; then
     exit 1
 fi
 
-echo "Configuring systemd-boot entries..."
+echo "Found boot entries:"
 ENTRY_FILES=$(ls $BOOT_ENTRIES_DIR/*.conf 2>/dev/null)
 
 if [ -z "$ENTRY_FILES" ]; then
@@ -44,8 +44,47 @@ if [ -z "$ENTRY_FILES" ]; then
     exit 1
 fi
 
+# Display entries with numbers
+i=1
+declare -A ENTRY_MAP
 for ENTRY_FILE in $ENTRY_FILES; do
-    echo "Checking: $ENTRY_FILE"
+    ENTRY_NAME=$(basename "$ENTRY_FILE")
+    ENTRY_TITLE=$(grep "^title" "$ENTRY_FILE" | cut -d' ' -f2- || echo "Unknown")
+    HAS_RESUME=$(grep -q "resume=" "$ENTRY_FILE" && echo " [resume configured]" || echo "")
+
+    echo "  [$i] $ENTRY_TITLE ($ENTRY_NAME)$HAS_RESUME"
+    ENTRY_MAP[$i]="$ENTRY_FILE"
+    ((i++))
+done
+
+echo ""
+echo "Select which boot entry to configure for hibernation:"
+echo "  Enter number(s) separated by space (e.g., '1 2' or 'all' for all entries)"
+read -p "Selection: " SELECTION
+
+# Parse selection
+if [ "$SELECTION" == "all" ]; then
+    SELECTED_ENTRIES=("${ENTRY_MAP[@]}")
+else
+    SELECTED_ENTRIES=()
+    for NUM in $SELECTION; do
+        if [ -n "${ENTRY_MAP[$NUM]}" ]; then
+            SELECTED_ENTRIES+=("${ENTRY_MAP[$NUM]}")
+        else
+            echo "Warning: Invalid selection '$NUM', skipping."
+        fi
+    done
+fi
+
+if [ ${#SELECTED_ENTRIES[@]} -eq 0 ]; then
+    echo "No valid entries selected. Exiting."
+    exit 1
+fi
+
+echo ""
+echo "Configuring selected boot entries..."
+for ENTRY_FILE in "${SELECTED_ENTRIES[@]}"; do
+    echo "Processing: $ENTRY_FILE"
 
     # Check if resume is already configured
     if grep -q "resume=" "$ENTRY_FILE"; then
