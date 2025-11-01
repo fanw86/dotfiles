@@ -96,8 +96,8 @@ for ENTRY_FILE in "${SELECTED_ENTRIES[@]}"; do
     cp "$ENTRY_FILE" "${ENTRY_FILE}.backup"
     echo "  Backed up to: ${ENTRY_FILE}.backup"
 
-    # Add resume parameter to options line
-    sed -i "/^options/s/$/ resume=${SWAP_DEVICE}/" "$ENTRY_FILE"
+    # Add resume parameter to options line (use | as delimiter to avoid issues with / in device path)
+    sed -i "/^options/s|$| resume=${SWAP_DEVICE}|" "$ENTRY_FILE"
     echo "  Added: resume=${SWAP_DEVICE}"
 done
 
