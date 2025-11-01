@@ -26,12 +26,12 @@ echo ""
 # Create swapfile (Btrfs requires special handling)
 if [ "$FSTYPE" == "btrfs" ]; then
     echo "Creating Btrfs-compatible swapfile..."
-    # Create empty file
-    sudo truncate -s 0 $SWAPFILE
+    # Create empty file with touch (must be completely empty for chattr +C)
+    sudo touch $SWAPFILE
     # Disable COW (copy-on-write) - REQUIRED for Btrfs swapfiles
     echo "Disabling copy-on-write..."
     sudo chattr +C $SWAPFILE
-    # Set permissions before writing
+    # Set permissions
     sudo chmod 600 $SWAPFILE
     # Fill the file
     echo "Filling swapfile (this takes time)..."
