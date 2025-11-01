@@ -47,7 +47,7 @@ echo "  Installed: /etc/systemd/sleep.conf"
 # Restart systemd-logind
 echo ""
 echo "Restarting systemd-logind service..."
-sudo systemctl restart systemd-logind
+#sudo systemctl restart systemd-logind
 
 echo ""
 echo "✓ Systemd configurations applied successfully!"
