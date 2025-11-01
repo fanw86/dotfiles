@@ -18,13 +18,32 @@ if [ -f "$SWAPFILE" ]; then
     exit 1
 fi
 
-# Create swapfile
-echo "Creating swapfile..."
-sudo dd if=/dev/zero of=$SWAPFILE bs=1G count=$SWAPSIZE status=progress
+# Check filesystem type
+FSTYPE=$(df -T / | tail -1 | awk '{print $2}')
+echo "Detected filesystem: $FSTYPE"
+echo ""
 
-# Set correct permissions
-echo "Setting permissions..."
-sudo chmod 600 $SWAPFILE
+# Create swapfile (Btrfs requires special handling)
+if [ "$FSTYPE" == "btrfs" ]; then
+    echo "Creating Btrfs-compatible swapfile..."
+    # Create empty file
+    sudo truncate -s 0 $SWAPFILE
+    # Disable COW (copy-on-write) - REQUIRED for Btrfs swapfiles
+    echo "Disabling copy-on-write..."
+    sudo chattr +C $SWAPFILE
+    # Set permissions before writing
+    sudo chmod 600 $SWAPFILE
+    # Fill the file
+    echo "Filling swapfile (this takes time)..."
+    sudo dd if=/dev/zero of=$SWAPFILE bs=1G count=$SWAPSIZE status=progress
+else
+    echo "Creating swapfile..."
+    # Standard method for ext4 and others
+    sudo fallocate -l ${SWAPSIZE}G $SWAPFILE
+    sudo chmod 600 $SWAPFILE
+fi
+
+echo ""
 
 # Make it a swap file
 echo "Formatting as swap..."
@@ -44,7 +63,8 @@ fi
 
 # Show current swap status
 echo ""
-echo "Swap setup complete!"
+echo "✓ Swap setup complete!"
+echo ""
 echo "Current swap status:"
 swapon --show
 
