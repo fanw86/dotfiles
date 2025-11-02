@@ -1,0 +1,17 @@
+patch:
+  'speller/algebra':
+    - erase/^xx$/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    
+    # 模糊音
+    # - derive/^([zcs])h/$1/      # zh/z, ch/c, sh/s
+    # - derive/^([zcs])([^h])/$1h$2/
+    # - derive/^n/l/              # n/l
+    # - derive/^l/n/
+    # - derive/ang$/an/           # ang/an
+    # - derive/an$/ang/
+    - derive/eng$/en/           # eng/en
+    - derive/en$/eng/
+    - derive/ing$/in/           # ing/in
+    - derive/in$/ing/
