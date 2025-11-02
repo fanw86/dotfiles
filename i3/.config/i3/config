@@ -213,7 +213,10 @@ bar {
 }
 
 # start dmenu
-bindsym $mod+d exec --no-startup-id rofi -combi-modi window#drun -show combi -modi combi -show-icons
+#bindsym $mod+d exec --no-startup-id rofi -combi-modi window#drun -show combi -modi combi -show-icons
+
+bindsym $mod+d exec vicinae toggle
+
 bindsym $mod+g exec --no-startup-id rofi -show window
 # bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 
