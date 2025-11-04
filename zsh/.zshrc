@@ -13,6 +13,7 @@ export GPG_TTY=$TTY
 # export CARGO=$HOME/.cargo/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:"$HOME/.config/emacs/bin"
+export PATH="$HOME/.local/bin:$PATH"
 
 # on my hands and knees using nvm so I can write elm.
 export NVM_DIR="$HOME/.nvm"
