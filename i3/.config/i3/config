@@ -238,3 +238,6 @@ exec_always --no-startup-id picom -b
 
 # Set random wallpaper
 exec_always --no-startup-id feh --bg-scale --randomize ~/.config/backgrounds/*
+
+exec xinput set-prop 14 "libinput Accel Speed" 0.2
+exec xinput set-prop 18 "libinput Accel Speed" -0.5
